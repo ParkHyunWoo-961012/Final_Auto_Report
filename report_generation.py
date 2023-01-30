@@ -121,23 +121,37 @@ def automatic_report_generate(customer_name):
 
     second_row[0].text = str(domestic['코스피변화율'].tail(1).values[0]) +"%"
 
-    # def color_define(x,locate):
-    #     if x>0:
-    #         print(1)
-    #         locate.text = str(x) + "%"
-    #         locate.text.font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
-    #     elif x==0:
-    #         pass
-    #     else:
-    #         pass
-    #
-    # color_define(domestic['코스피변화율'].tail(1).values[0],second_row[0])
-    # color_define(domestic['코스닥변화율'].tail(1).values[0],second_row[1])
-    second_row[2].text = str(nondomestic['S&P변화율'].tail(1).values[0]) + "%"
-    second_row[3].text = str(nondomestic['나스닥변화율'].tail(1).values[0]) + "%"
-    second_row[4].text = str(domestic_bond_3year['대비'].tail(1).values[0])
-    second_row[5].text = str(domestic_bond_10year['대비'].tail(1).values[0])
-    second_row[6].text = str(wti['변화율'].tail(1).values[0]) + "%"
+    def sign_define(x,locate,bond=False):
+        if bond:
+            if x>0:
+                locate.text = "+" + str(x)
+            elif x==0:
+                locate.text = str(x)
+            else:
+                locate.text = "-" + str(x)
+        else:
+            if x>0:
+                locate.text = "+" + str(x) + "%"
+            elif x==0:
+                locate.text = str(x)
+            else:
+                locate.text = "-" + str(x) + "%"
+    sign_define(domestic['코스피변화율'].tail(1).values[0],second_row[0])
+    sign_define(domestic['코스닥변화율'].tail(1).values[0],second_row[1])
+    sign_define(nondomestic['S&P변화율'].tail(1).values[0],second_row[2])
+    sign_define(nondomestic['나스닥변화율'].tail(1).values[0],second_row[3])
+
+    sign_define(domestic_bond_3year['대비'].tail(1).values[0],second_row[4],True)
+    sign_define(domestic_bond_10year['대비'].tail(1).values[0],second_row[5],True)
+    sign_define(wti['변화율'].tail(1).values[0],second_row[6])
+
+    # second_row[0].text = str(domestic['코스피변화율'].tail(1).values[0]) + "%"
+    # second_row[1].text = str(domestic['코스닥변화율'].tail(1).values[0]) + "%"
+    # second_row[2].text = str(nondomestic['S&P변화율'].tail(1).values[0]) + "%"
+    # second_row[3].text = str(nondomestic['나스닥변화율'].tail(1).values[0]) + "%"
+    # second_row[4].text = str(domestic_bond_3year['대비'].tail(1).values[0])
+    # second_row[5].text = str(domestic_bond_10year['대비'].tail(1).values[0])
+    # second_row[6].text = str(wti['변화율'].tail(1).values[0]) + "%"
 
     #2행 변동폭 표기 필요
     paragraph3 = document.add_paragraph('\n')
