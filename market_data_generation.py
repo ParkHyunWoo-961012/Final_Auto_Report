@@ -34,3 +34,4 @@ def market_data_generate():
     wti_df.reset_index(inplace=True,drop=False)
 
     wti_df.to_csv('/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/WTI.csv',index=False)
+

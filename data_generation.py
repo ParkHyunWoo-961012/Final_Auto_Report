@@ -441,9 +441,26 @@ def data_regeneration():
     korea_investment_bond_df = korea_investment_bond_df[korea_investment_bond_df['채권종류']=="회사채"]
     kiwoom_bond_df['발행사'] = "키움증권"
     korea_investment_bond_df['발행사'] = "한국투자증권"
+
     target_bond = pd.concat([kiwoom_bond_df,korea_investment_bond_df[kiwoom_bond_df.columns]])
     target_bond['세후수익률'] = target_bond['세후수익률'].astype(float)
 
+    target_col = list(target_df.columns)
+    target_col.remove("발행사")
+    target_df = target_df[['발행사']+target_col]
+
+    target_df['ELS명'] = target_df['ELS명'].str.replace("원금비보장종목형","")
+    target_df['ELS명'] = target_df['ELS명'].str.replace("원금비보장지수형","")
+    target_df['ELS명'] = target_df['ELS명'].str.replace("파생결합증권","")
+    def els_name_preprocessing(x):
+        target = x.split("(")
+        if "ELS" in x:
+            return x
+        if len(target)!=1:
+            return x.split("(")[0]
+        else:
+            return x
+    target_df['ELS명'] = target_df['ELS명'].apply(lambda x : els_name_preprocessing(x))
     target_df.to_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/ELS모음.xlsx",index=False)
     target_bond.to_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/채권모음.xlsx",index=False)
 
