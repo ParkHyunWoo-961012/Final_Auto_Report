@@ -89,7 +89,10 @@ st.dataframe(df_sel_2)
 
 if st.button("리포트 생성"):
     from report_generation import automatic_report_generate
-    automatic_report_generate(input_user_name,pb_name,pb_comment,df_sel_1.head(5),df_sel_2.head(5))
+    if bond_sort =="신용등급별최고수익률":
+        automatic_report_generate(input_user_name,pb_name,pb_comment,df_sel_1.head(5),df_sel_2)
+    else:
+        automatic_report_generate(input_user_name,pb_name,pb_comment,df_sel_1.head(5),df_sel_2.head(5))
 
 if st.button("Email Send"):
     msg = MIMEMultipart()
