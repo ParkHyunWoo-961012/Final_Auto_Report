@@ -11,7 +11,7 @@ from email import encoders
 import datetime
 import matplotlib.pyplot as plt
 
-plt.rc('font', family='NanumGothic')
+#plt.rc('font', family='NanumGothic')
 
 # from market_data_generation import market_data_generate
 #
