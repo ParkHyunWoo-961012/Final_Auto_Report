@@ -35,7 +35,6 @@ ratio = [34, 32, 16, 18]
 labels = ['삼성전자', 'SK하이닉스', 'LG에너지솔루션', '한국금융지주']
 colors = ['#ff9999', '#ffc000', '#8fd9b6', '#d395d0']
 wedgeprops={'width': 0.7, 'edgecolor': 'w', 'linewidth': 5}
-
 plt.pie(ratio, labels=labels, autopct='%.1f%%', startangle=260, counterclock=False, colors=colors, wedgeprops=wedgeprops)
 plt.savefig("./Image/" + input_user_name + "포트폴리오.png")
 
