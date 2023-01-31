@@ -26,9 +26,8 @@ pb_name = st.text_input(label="PB명", value="PB이름")
 pb_comment = st.text_input(label ="PB 한줄코멘트", value = "다 사세요.")
 input_user_name = st.selectbox("고객명", cus_info['고객명'].unique())
 
-path = './font/NanumGothicCoding.ttf'
-font_name = fm.FontProperties(fname=path, size=50)
-plt.rc('font', family=font_name)
+
+plt.rc('font', family="AppleGothic")
 
 ratio = [34, 32, 16, 18]
 labels = ['삼성전자', 'SK하이닉스', 'LG에너지솔루션', '한국금융지주']
