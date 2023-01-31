@@ -93,10 +93,6 @@ else:
     df_sel_2 = bond_df[bond_df['발행사']=="한국투자증권"].sort_values("세후수익률",ascending=False)
 st.dataframe(df_sel_2)
 
-if st.button("금융상품 데이터 업데이트"):
-    from data_generation import data_regeneration
-    data_regeneration()
-
 if st.button("리포트 생성"):
     from report_generation import automatic_report_generate
     automatic_report_generate(input_user_name,pb_name,pb_comment,df_sel_1.head(5),df_sel_2.head(5))
