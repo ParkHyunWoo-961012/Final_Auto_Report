@@ -35,3 +35,13 @@ def market_data_generate():
 
     wti_df.to_csv('./data/WTI.csv',index=False)
 
+    stock_price = pd.DataFrame()
+    target = yf.download("005930.KS","2023-01-01").reset_index()
+    stock_price['Date']= target['Date']
+    stock_price['삼성전자'] = target['Close']
+    stock_price['한국금융지주'] = yf.download("071050.KS","2023-01-01").reset_index()['Close']
+    stock_price['SK하이닉스'] = yf.download("000660.KS","2023-01-01").reset_index()['Close']
+    stock_price['LG에너지솔루션'] = yf.download("373220.KS","2023-01-01").reset_index()['Close']
+    stock_price.to_csv("./data/stock_price.csv",index=False)
+
+

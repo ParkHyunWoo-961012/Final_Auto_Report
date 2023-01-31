@@ -138,8 +138,22 @@ def automatic_report_generate(customer_name,pb_name,pb_comment,els_df,target_bon
     paragraph = table.rows[0].cells[1].paragraphs[0]
     run = paragraph.add_run()
     run.add_picture("./Image/" + customer_name + "포트폴리오.png", width=Inches(3.5),height=Inches(3.5))
+    stock_price = pd.read_csv("./data/stock_price.csv")
 
-    table.rows[0].cells[0].text = "한국금융지주 (+10%) \n삼성전자 (+10%) \nSK하이닉스 (+10%) \nLG에너지솔루션 (+10%) "
+    stock_close_price = []
+    stock_pct_change = []
+    target_stock = list(stock_price.columns[1:].values)
+
+    for i in stock_price.columns[1:]:
+        stock_pct_change.append(np.round(stock_price[i].pct_change().tail(1).values[0]*100,2))
+        stock_close_price.append(int(stock_price[i].tail(1).values[0]))
+
+    target_string = "\n\n\n\n"
+    for idx,stock_name in enumerate(target_stock):
+        target_string += stock_name + "\n\t"
+        target_string += str(stock_close_price[idx]) + "원 (" + str(stock_pct_change[idx]) + "%)\n\n"
+
+    table.rows[0].cells[0].text = target_string
 
     paragraph3 = document.add_paragraph('\n')
     paragraph3.add_run('{0}, 여의도 영업부/113240@koreainvestment.com'.format(pb_name)).bold = True

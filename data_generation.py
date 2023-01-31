@@ -9,11 +9,11 @@ from selenium.webdriver.common.by import By
 def data_regeneration():
     def korea_investment_ELS():
         url = "https://securities.koreainvestment.com/main/mall/openels/EdlsInfo.jsp"
-        driver = webdriver.Chrome(ChromeDriverManager().install())  # 웹 드라이버 정의
-        driver.implicitly_wait(30)  # 웹페이지 파싱 될때까지 최대 30초 기다림
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.implicitly_wait(30)
 
-        driver.get(url)  # 웹페이지로 이동
-        bsObject = BeautifulSoup(driver.page_source, "html.parser") # BeautifulSoup로 페이지 소스 파싱
+        driver.get(url)
+        bsObject = BeautifulSoup(driver.page_source, "html.parser")
 
         target= bsObject.findAll('table')[4]
 
@@ -86,7 +86,7 @@ def data_regeneration():
         driver.find_element(By.XPATH,'//*[@id="list_style"]/table/thead/tr/th[5]/span/a[2]').click()
         time.sleep(3)
 
-        bsObject = BeautifulSoup(driver.page_source, "html.parser") #
+        bsObject = BeautifulSoup(driver.page_source, "html.parser")
 
         target_ELS_list = []
         ELS_composite_list= []
@@ -488,4 +488,6 @@ def data_regeneration():
 
     target_df.to_csv("./data/ELS모음.csv",index=False)
     target_bond.to_csv("./data/채권모음.csv",index=False)
+
+data_regeneration()
 

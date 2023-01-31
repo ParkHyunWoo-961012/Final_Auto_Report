@@ -101,7 +101,6 @@ if st.button("리포트 생성"):
         my_bar.progress(percent_complete + 1)
 
 if st.button("Email Send"):
-    my_bar = st.progress(0)
     msg = MIMEMultipart()
     msg['From'] = email_id
     msg['To'] = customer_id
@@ -120,10 +119,8 @@ if st.button("Email Send"):
     msg.attach(part)
 
     mailServer = smtplib.SMTP_SSL('smtp.naver.com',465)
-    mailServer.login(email_id, password)  # 본인 계정과 비밀번호 사용.
+    mailServer.login(email_id, password)
     mailServer.send_message(msg)
     mailServer.quit()
 
-    time.sleep(0.5)
-    for percent_complete in range(100):
-        my_bar.progress(percent_complete + 1)
+    st.success('이메일전송완료', icon="✅")
