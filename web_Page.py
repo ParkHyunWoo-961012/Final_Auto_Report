@@ -13,7 +13,6 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 
 st.set_page_config(page_title='AI-RETAIL',page_icon='🎈',layout='wide')
-
 st.title("🎈PB 리포트 업무 자동화 프로그램 '인공지능 리테일 AIR(AI-Retail)")
 cus_info = pd.read_csv("./data/cus_info.csv")
 els_df = pd.read_csv("./data/ELS모음.csv")
@@ -25,7 +24,6 @@ bond_df['잔존기간(일)'] = bond_df['잔존기간(일)'].astype(int)
 pb_name = st.text_input(label="PB명", value="PB이름")
 pb_comment = st.text_input(label ="PB 한줄코멘트", value = "다 사세요.")
 input_user_name = st.selectbox("고객명", cus_info['고객명'].unique())
-
 
 plt.rc('font', family="AppleGothic")
 
