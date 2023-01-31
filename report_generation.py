@@ -137,7 +137,7 @@ def automatic_report_generate(customer_name,pb_name,pb_comment,els_df,target_bon
     table.autofit = True
     paragraph = table.rows[0].cells[1].paragraphs[0]
     run = paragraph.add_run()
-    run.add_picture("./Image/" + customer_name + "포트폴리오.png", width=Inches(3.5),height=Inches(3.5))
+    run.add_picture("./Image/Default"+ "포트폴리오.png", width=Inches(3.5),height=Inches(3.5))
     stock_price = pd.read_csv("./data/stock_price.csv")
 
     stock_close_price = []
