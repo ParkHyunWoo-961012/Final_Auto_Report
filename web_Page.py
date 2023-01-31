@@ -9,6 +9,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 from email import encoders
 import datetime
+import time
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 
@@ -88,13 +89,19 @@ else:
 st.dataframe(df_sel_2)
 
 if st.button("리포트 생성"):
+    my_bar = st.progress(0)
+
     from report_generation import automatic_report_generate
     if bond_sort =="신용등급별최고수익률":
         automatic_report_generate(input_user_name,pb_name,pb_comment,df_sel_1.head(5),df_sel_2)
     else:
         automatic_report_generate(input_user_name,pb_name,pb_comment,df_sel_1.head(5),df_sel_2.head(5))
+    time.sleep(0.5)
+    for percent_complete in range(100):
+        my_bar.progress(percent_complete + 1)
 
 if st.button("Email Send"):
+    my_bar = st.progress(0)
     msg = MIMEMultipart()
     msg['From'] = email_id
     msg['To'] = customer_id
@@ -116,3 +123,7 @@ if st.button("Email Send"):
     mailServer.login(email_id, password)  # 본인 계정과 비밀번호 사용.
     mailServer.send_message(msg)
     mailServer.quit()
+
+    time.sleep(0.5)
+    for percent_complete in range(100):
+        my_bar.progress(percent_complete + 1)
