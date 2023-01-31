@@ -27,11 +27,11 @@ def market_data_generate():
     nondomestic_df['S&P500'] = snp_df['Close']
     nondomestic_df['Nasdaq'] = nasdaq_df['Close']
 
-    domestic_df.to_csv("./8_BoKum/data/국내지수.csv",index=False)
-    nondomestic_df.to_csv("./8_BoKum/data/해외지수.csv",index=False)
+    domestic_df.to_csv("./data/국내지수.csv",index=False)
+    nondomestic_df.to_csv("./data/해외지수.csv",index=False)
 
     wti_df = yf.download('CL=F', '2023-01-02')
     wti_df.reset_index(inplace=True,drop=False)
 
-    wti_df.to_csv('./8_BoKum/data/WTI.csv',index=False)
+    wti_df.to_csv('./data/WTI.csv',index=False)
 
