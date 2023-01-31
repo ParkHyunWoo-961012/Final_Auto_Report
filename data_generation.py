@@ -486,8 +486,8 @@ def data_regeneration():
 
     target_df['타입'] = target_df['기초자산'].apply(lambda x : base_composite_preprocessing(x,unique_item))
 
-    target_df.to_csv("./data/ELS모음.csv",index=False)
-    target_bond.to_csv("./data/채권모음.csv",index=False)
+    target_df.to_csv("./8_BoKum/data/ELS모음.csv",index=False)
+    target_bond.to_csv("./8_BoKum/data/채권모음.csv",index=False)
 
 
 
