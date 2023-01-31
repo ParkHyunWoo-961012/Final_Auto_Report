@@ -133,13 +133,13 @@ def automatic_report_generate(customer_name,pb_name,pb_comment,els_df,target_bon
     head = document.add_heading('', level = 0)
     head.add_run('보유종목 Report').bold=True
 
-    # table = document.add_table(rows = 1,cols= 2)
-    # table.autofit = True
-    # paragraph = table.rows[0].cells[1].paragraphs[0]
-    # run = paragraph.add_run()
-    # run.add_picture("./Image/" + customer_name + "포트폴리오.png", width=Inches(3.5),height=Inches(3.5))
-    #
-    # table.rows[0].cells[0].text = "한국금융지주 (+10%) \n삼성전자 (+10%) \nSK하이닉스 (+10%) \nLG에너지솔루션 (+10%) "
+    table = document.add_table(rows = 1,cols= 2)
+    table.autofit = True
+    paragraph = table.rows[0].cells[1].paragraphs[0]
+    run = paragraph.add_run()
+    run.add_picture("./Image/" + customer_name + "포트폴리오.png", width=Inches(3.5),height=Inches(3.5))
+
+    table.rows[0].cells[0].text = "한국금융지주 (+10%) \n삼성전자 (+10%) \nSK하이닉스 (+10%) \nLG에너지솔루션 (+10%) "
 
     paragraph3 = document.add_paragraph('\n')
     paragraph3.add_run('{0}, 여의도 영업부/113240@koreainvestment.com'.format(pb_name)).bold = True
