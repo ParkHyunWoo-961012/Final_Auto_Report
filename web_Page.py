@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 from email import encoders
 import datetime
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 #plt.rc('font', family='AppleGothic')
 
