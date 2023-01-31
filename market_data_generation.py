@@ -10,7 +10,7 @@ def market_data_generate():
     국고채10년['종목명'] = "국채10년"
 
     treasury_bond = pd.concat([국고채3년,국고채10년])
-    treasury_bond.to_csv("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/국채데이터.csv",index=False)
+    treasury_bond.to_csv("./data/국채데이터.csv",index=False)
 
     snp_df = yf.download('SPY', start='2023-01-02').reset_index()
     nasdaq_df = yf.download('^IXIC', start='2023-01-02').reset_index()
@@ -27,11 +27,11 @@ def market_data_generate():
     nondomestic_df['S&P500'] = snp_df['Close']
     nondomestic_df['Nasdaq'] = nasdaq_df['Close']
 
-    domestic_df.to_csv("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/국내지수.csv",index=False)
-    nondomestic_df.to_csv("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/해외지수.csv",index=False)
+    domestic_df.to_csv("./data/국내지수.csv",index=False)
+    nondomestic_df.to_csv("./data/해외지수.csv",index=False)
 
     wti_df = yf.download('CL=F', '2023-01-02')
     wti_df.reset_index(inplace=True,drop=False)
 
-    wti_df.to_csv('/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/WTI.csv',index=False)
+    wti_df.to_csv('./data/WTI.csv',index=False)
 

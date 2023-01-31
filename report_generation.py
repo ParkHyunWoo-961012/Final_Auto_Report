@@ -10,7 +10,7 @@ from docx.enum.style import *
 
 
 def automatic_report_generate(customer_name,pb_name,pb_comment,els_df,target_bond):
-    document = Document('/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/템플릿.docx')
+    document = Document('./data/템플릿.docx')
     today_date = datetime.datetime.now().strftime("%Y.%m.%d")
 
     paragraph3 = document.add_paragraph()
@@ -42,10 +42,10 @@ def automatic_report_generate(customer_name,pb_name,pb_comment,els_df,target_bon
     first_row[6].text = '유가'
 
     second_row = table.rows[1].cells
-    domestic = pd.read_csv("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/국내지수.csv")
-    nondomestic = pd.read_csv("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/해외지수.csv")
-    wti = pd.read_csv("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/WTI.csv")
-    domestic_bond = pd.read_csv("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/국채데이터.csv")
+    domestic = pd.read_csv("./data/국내지수.csv")
+    nondomestic = pd.read_csv("./data/해외지수.csv")
+    wti = pd.read_csv("./data/WTI.csv")
+    domestic_bond = pd.read_csv("./data/국채데이터.csv")
 
     import numpy as np
 
@@ -137,7 +137,7 @@ def automatic_report_generate(customer_name,pb_name,pb_comment,els_df,target_bon
     table.autofit = True
     paragraph = table.rows[0].cells[1].paragraphs[0]
     run = paragraph.add_run()
-    run.add_picture("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/Image" + customer_name + "포트폴리오.png", width=Inches(3.5),height=Inches(3.5))
+    run.add_picture("./Image/" + customer_name + "포트폴리오.png", width=Inches(3.5),height=Inches(3.5))
 
     table.rows[0].cells[0].text = "한국금융지주 (+10%) \n삼성전자 (+10%) \nSK하이닉스 (+10%) \nLG에너지솔루션 (+10%) "
 
@@ -146,5 +146,5 @@ def automatic_report_generate(customer_name,pb_name,pb_comment,els_df,target_bon
 
     paragraph3.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
-    document.save("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/Generated_Report/{0}고객님 리포트.docx".format(customer_name))
+    document.save("./Generated_Report/{0}고객님 리포트.docx".format(customer_name))
 

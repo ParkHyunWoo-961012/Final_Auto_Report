@@ -21,9 +21,9 @@ plt.rc('font', family='AppleGothic')
 st.set_page_config(page_title='AI-RETAIL',page_icon='🎈',layout='wide')
 
 st.title("🎈PB 리포트 업무 자동화 프로그램 '인공지능 리테일 AIR(AI-Retail)")
-cus_info = pd.read_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/고객정보.xlsx")
-els_df = pd.read_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/ELS모음.xlsx")
-bond_df = pd.read_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/채권모음.xlsx")
+cus_info = pd.read_excel("./data/고객정보.xlsx")
+els_df = pd.read_excel("./data/ELS모음.xlsx")
+bond_df = pd.read_excel("./data/채권모음.xlsx")
 
 bond_df['잔존기간(일)'] = (pd.to_datetime(bond_df['만기일']) - datetime.datetime.today()).dt.days
 bond_df['잔존기간(일)'] = bond_df['잔존기간(일)'].astype(int)
@@ -39,7 +39,7 @@ wedgeprops={'width': 0.7, 'edgecolor': 'w', 'linewidth': 5}
 
 #plt.rc('font', family='Malgun Gothic')
 plt.pie(ratio, labels=labels, autopct='%.1f%%', startangle=260, counterclock=False, colors=colors, wedgeprops=wedgeprops)
-plt.savefig("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/Image" + input_user_name + "포트폴리오.png")
+plt.savefig("./Image/" + input_user_name + "포트폴리오.png")
 
 email_id = st.text_input("네이버 이메일 주소","@naver.com")
 
@@ -111,7 +111,7 @@ if st.button("Email Send"):
     body = MIMEText('{0}고객님 리포트 입니다.'.format(input_user_name), _charset='utf-8')
     msg.attach(body)
 
-    filename = '/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/Generated_Report/{0}고객님 리포트.docx'.format(input_user_name)
+    filename = './Generated_Report/{0}고객님 리포트.docx'.format(input_user_name)
     attachment = open(filename,'rb')
 
     part = MIMEBase('application','octet-stream')

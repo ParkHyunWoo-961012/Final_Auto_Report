@@ -486,8 +486,8 @@ def data_regeneration():
 
     target_df['타입'] = target_df['기초자산'].apply(lambda x : base_composite_preprocessing(x,unique_item))
 
-    target_df.to_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/ELS모음.xlsx",index=False)
-    target_bond.to_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/채권모음.xlsx",index=False)
+    target_df.to_excel("./data/ELS모음.xlsx",index=False)
+    target_bond.to_excel("./data/채권모음.xlsx",index=False)
 
 
 
