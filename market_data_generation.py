@@ -3,8 +3,8 @@ from pykrx import bond
 import pandas as pd
 
 def market_data_generate():
-    국고채10년 = bond.get_otc_treasury_yields("20230104", "20230127", "국고채10년").reset_index()
-    국고채3년 = bond.get_otc_treasury_yields("20230104", "20230127", "국고채3년").reset_index()
+    국고채10년 = bond.get_otc_treasury_yields("20230104","20240101","국고채10년").reset_index()
+    국고채3년 = bond.get_otc_treasury_yields("20230104","20240101","국고채3년").reset_index()
 
     국고채3년['종목명'] = "국채3년"
     국고채10년['종목명'] = "국채10년"
@@ -12,10 +12,10 @@ def market_data_generate():
     treasury_bond = pd.concat([국고채3년,국고채10년])
     treasury_bond.to_csv("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/국채데이터.csv",index=False)
 
-    snp_df = yf.download('SPY', start='2023-01-02', end='2023-01-28').reset_index()
-    nasdaq_df = yf.download('^IXIC', start='2023-01-02', end='2023-01-28').reset_index()
-    kospi_df = yf.download('^KS11', start='2023-01-02', end='2023-01-28').reset_index()
-    kosdaq_df = yf.download('^KQ11', start='2023-01-02', end='2023-01-28').reset_index()
+    snp_df = yf.download('SPY', start='2023-01-02').reset_index()
+    nasdaq_df = yf.download('^IXIC', start='2023-01-02').reset_index()
+    kospi_df = yf.download('^KS11', start='2023-01-02').reset_index()
+    kosdaq_df = yf.download('^KQ11', start='2023-01-02').reset_index()
 
     domestic_df =  pd.DataFrame()
     domestic_df['Date'] = kospi_df['Date']

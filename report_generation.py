@@ -2,13 +2,14 @@ from docx import Document
 from docx.shared import Pt
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Inches
 import datetime
 import pandas as pd
 from docx.shared import RGBColor
 from docx.enum.style import *
 
 
-def automatic_report_generate(customer_name,pb_name,els_df,target_bond):
+def automatic_report_generate(customer_name,pb_name,pb_comment,els_df,target_bond):
     document = Document('/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/템플릿.docx')
     today_date = datetime.datetime.now().strftime("%Y.%m.%d")
 
@@ -21,12 +22,14 @@ def automatic_report_generate(customer_name,pb_name,els_df,target_bond):
 
     paragraph3.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
-    head = document.add_heading(('"이번주는 쉬어갑니다."'), 0)
-
-    head.runs[0].font.size=Pt(35)
+    head = document.add_heading("", 0)
+    head.add_run(pb_comment).bold=True
+    head.runs[0].font.size=Pt(30)
 
     document.add_paragraph("_________________________________________________________________________________________________")
-    document.add_heading('증시', level = 0)
+    head = document.add_heading('', level = 0)
+    head.add_run('증시').bold=True
+
     table = document.add_table(rows = 2, cols = 7)
     table.style = document.styles['Table Grid']
     first_row = table.rows[0].cells
@@ -66,34 +69,31 @@ def automatic_report_generate(customer_name,pb_name,els_df,target_bond):
             elif x==0:
                 locate.text = str(close) + "\n(" + str(x) + ")"
             else:
-                locate.text = str(close) + "\n(-" + str(x) + ")"
+                locate.text = str(close) + "\n(" + str(x) + ")"
         else:
             if x>0:
                 locate.text = str(close) + "\n(+" + str(x) + "%)"
             elif x==0:
                 locate.text = str(close) + "\n(" + str(x) + ")"
             else:
-                locate.text = str(close) + "\n(-" + str(x) + ")"
+                locate.text = str(close) + "\n(" + str(x) + "%)"
 
     sign_define(domestic['코스피변화율'].tail(1).values[0],domestic['Kospi'].tail(1).values[0] ,second_row[0])
     sign_define(domestic['코스닥변화율'].tail(1).values[0],domestic['Kosdaq'].tail(1).values[0] ,second_row[1])
     sign_define(nondomestic['S&P변화율'].tail(1).values[0],nondomestic['S&P500'].tail(1).values[0],second_row[2])
     sign_define(nondomestic['나스닥변화율'].tail(1).values[0],nondomestic['Nasdaq'].tail(1).values[0],second_row[3])
-
     sign_define(domestic_bond_3year['대비'].tail(1).values[0],domestic_bond_3year['수익률'].tail(1).values[0],second_row[4],True)
     sign_define(domestic_bond_10year['대비'].tail(1).values[0],domestic_bond_10year['수익률'].tail(1).values[0],second_row[5],True)
     sign_define(wti['변화율'].tail(1).values[0],wti['Close'].tail(1).values[0],second_row[6])
 
     document.add_paragraph("_________________________________________________________________________________________________")
 
-    document.add_heading("금주 추천 금융 상품 ({0} ~ {1})".format(today_date,(datetime.datetime.today()+datetime.timedelta(days=7)).strftime("%Y.%m.%d")), level = 0)
+    head = document.add_heading('', level = 0)
+    head.add_run("금주 추천 금융 상품 ({0} ~ {1})".format(today_date,(datetime.datetime.today()+datetime.timedelta(days=7)).strftime("%Y.%m.%d"))).bold=True
 
-    document.add_heading('회사채', level = 0)
+    head = document.add_heading('', level = 0)
+    head.add_run('1.회사채').bold=True
 
-    bond_list = pd.DataFrame(columns = target_bond.columns)
-
-    # for i in target_bond.sort_values('신용등급')['신용등급'].unique():
-    #     bond_list = pd.concat([bond_list,target_bond[target_bond['신용등급'] == i].sort_values("세후수익률").tail(1)])
     table = document.add_table(target_bond.shape[0]+1, target_bond.shape[1],style = document.styles['Table Grid'])
 
     target_columns = target_bond.columns
@@ -107,9 +107,11 @@ def automatic_report_generate(customer_name,pb_name,els_df,target_bond):
             else:
                 cell = row.cells[c]
                 cell.text = str(target_bond.iloc[r-1][target_columns[c]])
+
     document.add_paragraph('\n')
 
-    document.add_heading('ELS', level = 0)
+    head = document.add_heading('', level = 0)
+    head.add_run('2.ELS').bold=True
 
     table = document.add_table(els_df.shape[0]+1, els_df.shape[1],style = document.styles['Table Grid'])
     table.autofit = True
@@ -128,9 +130,17 @@ def automatic_report_generate(customer_name,pb_name,els_df,target_bond):
     document.add_paragraph('\n')
     document.add_paragraph("_________________________________________________________________________________________________")
 
-    document.add_heading('보유종목 Report', level = 0)
+    head = document.add_heading('', level = 0)
+    head.add_run('보유종목 Report').bold=True
 
-    #2행 변동폭 표기 필요
+    table = document.add_table(rows = 1,cols= 2)
+    table.autofit = True
+    paragraph = table.rows[0].cells[1].paragraphs[0]
+    run = paragraph.add_run()
+    run.add_picture("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/Image" + customer_name + "포트폴리오.png", width=Inches(3.5),height=Inches(3.5))
+
+    table.rows[0].cells[0].text = "한국금융지주 (+10%) \n삼성전자 (+10%) \nSK하이닉스 (+10%) \nLG에너지솔루션 (+10%) "
+
     paragraph3 = document.add_paragraph('\n')
     paragraph3.add_run('{0}, 여의도 영업부/113240@koreainvestment.com'.format(pb_name)).bold = True
 

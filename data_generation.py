@@ -12,8 +12,6 @@ def data_regeneration():
         driver = webdriver.Chrome(ChromeDriverManager().install())  # 웹 드라이버 정의
         driver.implicitly_wait(30)  # 웹페이지 파싱 될때까지 최대 30초 기다림
 
-
-        # 네이버의 베스트셀러 웹페이지를 가져옵니다.
         driver.get(url)  # 웹페이지로 이동
         bsObject = BeautifulSoup(driver.page_source, "html.parser") # BeautifulSoup로 페이지 소스 파싱
 
@@ -130,13 +128,11 @@ def data_regeneration():
 
     def mirae_asset_ELS():
         url = "https://securities.miraeasset.com/mw/mks/mks4022/r01.do"
-        driver = webdriver.Chrome(ChromeDriverManager().install())  # 웹 드라이버 정의
-        driver.implicitly_wait(30)  # 웹페이지 파싱 될때까지 최대 30초 기다림
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.implicitly_wait(30)
 
-
-        # 네이버의 베스트셀러 웹페이지를 가져옵니다.
-        driver.get(url)  # 웹페이지로 이동
-        bsObject = BeautifulSoup(driver.page_source, "html.parser") # BeautifulSoup로 페이지 소스 파싱
+        driver.get(url)
+        bsObject = BeautifulSoup(driver.page_source, "html.parser")
 
         ELS_name = []
         ELS_composite = []
@@ -181,14 +177,14 @@ def data_regeneration():
 
     def nh_ELS():
         url = "https://m.nhqv.com/finance/els/els/saleList"
-        driver = webdriver.Chrome(ChromeDriverManager().install())  # 웹 드라이버 정의
-        driver.implicitly_wait(30)  # 웹페이지 파싱 될때까지 최대 30초 기다림
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.implicitly_wait(30)
 
-        driver.get(url)  # 웹페이지로 이동
-        bsObject = BeautifulSoup(driver.page_source, "html.parser") # BeautifulSoup로 페이지 소스 파싱
+        driver.get(url)
+        bsObject = BeautifulSoup(driver.page_source, "html.parser")
         bsObject.findAll("span",{"class":"txt"})
         bsObject = BeautifulSoup(driver.page_source, "html.parser")
-        ## ELS 이름
+
         ELS_name = []
         ELS_loss = []
         ELS_return = []
@@ -196,6 +192,7 @@ def data_regeneration():
         ELS_date = []
         ELS_structure =[]
 
+        ## ELS명
         for i in bsObject.findAll("strong",{"class":"tit h37 disp_b"}):
             ELS_name.append(i.text)
 
@@ -229,11 +226,11 @@ def data_regeneration():
 
     def kiwoom_ELS():
         url = "https://www1.kiwoom.com/wm/edl/es010/edlElsView?dummyVal=0"
-        driver = webdriver.Chrome(ChromeDriverManager().install())  # 웹 드라이버 정의
-        driver.implicitly_wait(30)  # 웹페이지 파싱 될때까지 최대 30초 기다림
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.implicitly_wait(30)
 
-        driver.get(url)  # 웹페이지로 이동
-        bsObject = BeautifulSoup(driver.page_source, "html.parser") # BeautifulSoup로 페이지 소스 파싱
+        driver.get(url)
+        bsObject = BeautifulSoup(driver.page_source, "html.parser")
 
         ELS_name = []
         ELS_composite = []
@@ -269,14 +266,11 @@ def data_regeneration():
 
     def korea_investment_bond():
         url = "https://www.truefriend.com/main/mall/opendecision/DecisionInfo.jsp?cmd=TF02da010100"
-        driver = webdriver.Chrome(ChromeDriverManager().install())  # 웹 드라이버 정의
-        driver.implicitly_wait(30)  # 웹페이지 파싱 될때까지 최대 30초 기다림
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.implicitly_wait(30)
 
-
-        # 네이버의 베스트셀러 웹페이지를 가져옵니다.
-        driver.get(url)  # 웹페이지로 이동
-        bsObject = BeautifulSoup(driver.page_source, "html.parser") # BeautifulSoup로 페이지 소스 파싱
-        target = bsObject.findAll('table')[3]
+        driver.get(url)
+        bsObject = BeautifulSoup(driver.page_source, "html.parser")
 
         bond_class = []
         bond_name = []
@@ -344,11 +338,11 @@ def data_regeneration():
 
     def kiwoom_bond():
         url = "https://www.kiwoom.com/wm/bnd/od010/bndOdListView"
-        driver = webdriver.Chrome(ChromeDriverManager().install())  # 웹 드라이버 정의
-        driver.implicitly_wait(30)  # 웹페이지 파싱 될때까지 최대 30초 기다림
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.implicitly_wait(30)
 
 
-        driver.get(url)  # 웹페이지로 이동
+        driver.get(url)
         bsObject = BeautifulSoup(driver.page_source, "html.parser")
         driver.find_element(By.XPATH,'/html/body/main/section/div/div/div[3]/div[1]/ul/li[1]/a').click()
         time.sleep(3)
@@ -390,7 +384,6 @@ def data_regeneration():
     while len(nh_df)==0:
         nh_df = nh_ELS()
 
-    mirae_df = mirae_asset_ELS()
     korea_df = korea_investment_ELS()
 
     nh_df['기초자산'] = nh_df['기초자산'].str.replace(",",", ")
@@ -428,8 +421,18 @@ def data_regeneration():
     def knock_in_show(x):
         if len(x.split("(종가)")) !=1:
             return x.split("(종가)")[0][-2:]
+        elif "(No" in x:
+            return x.split("(No")[0][-2:]
+        elif "NO" in x:
+            return x.split(")")[0][-2:]
+        elif "No" in x:
+            return x.split(",")[0][-2:]
+
         elif len(x.split("KI")) ==2:
-            return x.split("KI")[0][-2:]
+            if len(x.split("KI")[1])==0:
+                return x.split("KI")[0][-2:]
+            else:
+                return x.split("KI")[1][1:3]
         elif len(x.split("KI")) !=1:
             return x.split("KI")[1][:3]
         elif len(x.split("/")) == 2:
@@ -461,7 +464,30 @@ def data_regeneration():
         else:
             return x
     target_df['ELS명'] = target_df['ELS명'].apply(lambda x : els_name_preprocessing(x))
+
+    unique_item = []
+    for i in target_df['기초자산'].str.split(", ").values:
+        for x in i:
+            if x == "":
+                pass
+            else:
+                unique_item.append(x)
+    unique_item = list(set(unique_item))
+    remove_item = ["HSCEI","S&P500","KOSPI200","NIKKEI225","EUROSTOXX50"]
+
+    for i in remove_item:
+        unique_item.remove(i)
+
+    def base_composite_preprocessing(x,unique):
+        for i in unique:
+            if i in x:
+                return "종목형"
+        return "지수형"
+
+    target_df['타입'] = target_df['기초자산'].apply(lambda x : base_composite_preprocessing(x,unique_item))
+
     target_df.to_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/ELS모음.xlsx",index=False)
     target_bond.to_excel("/Users/hyunwoo/PycharmProjects/pythonProject/HanTwoProject/8_BoKum/data/채권모음.xlsx",index=False)
+
 
 
