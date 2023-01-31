@@ -10,9 +10,7 @@ from email.utils import formatdate
 from email import encoders
 import datetime
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
+
 plt.rc('font', family='AppleGothic')
 # from market_data_generation import market_data_generate
 #
