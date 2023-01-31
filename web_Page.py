@@ -59,6 +59,7 @@ els_df['ELS명'] = els_df['ELS명'] + "\n(" + els_df['구조']
 els_df.drop(columns = ["최대손실률","구조"],inplace=True)
 
 els_sort = st.selectbox("ELS 분류기준 ",options=["발행사 : 한국투자증권","지수형","종목형","낙인 낮은순","낙인 높은순","수익률순"])
+
 df_sel_1 = els_df
 if els_sort == "발행사 : 한국투자증권":
     df_sel_1 = els_df[els_df['발행사']=="한국투자증권"].sort_values("수익률",ascending=False)
