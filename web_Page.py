@@ -20,9 +20,9 @@ import datetime
 st.set_page_config(page_title='AI-RETAIL',page_icon='🎈',layout='wide')
 
 st.title("🎈PB 리포트 업무 자동화 프로그램 '인공지능 리테일 AIR(AI-Retail)")
-cus_info = pd.read_excel("./data/고객정보.xlsx")
-els_df = pd.read_excel("./data/ELS모음.xlsx")
-bond_df = pd.read_excel("./data/채권모음.xlsx")
+cus_info = pd.read_csv("./data/고객정보.csv")
+els_df = pd.read_csv("./data/ELS모음.csv")
+bond_df = pd.read_csv("./data/채권모음.csv")
 
 bond_df['잔존기간(일)'] = (pd.to_datetime(bond_df['만기일']) - datetime.datetime.today()).dt.days
 bond_df['잔존기간(일)'] = bond_df['잔존기간(일)'].astype(int)
