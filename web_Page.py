@@ -54,9 +54,9 @@ elif els_sort =="지수형":
 elif els_sort =="종목형":
     df_sel_1 = els_df[els_df['타입']=="종목형"].sort_values("수익률",ascending=False)
 elif els_sort == "낙인 낮은순":
-    df_sel_1 = els_df.sort_values("낙인",ascending=True)
+    df_sel_1 = els_df.sort_values(["낙인","수익률"],ascending=[True,False])
 elif els_sort == "낙인 높은순":
-    df_sel_1 = els_df.sort_values("낙인",ascending=False)
+    df_sel_1 = els_df.sort_values(["낙인","수익률"],ascending=False)
 else:
     df_sel_1 = els_df.sort_values("수익률",ascending=False)
 
