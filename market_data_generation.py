@@ -45,3 +45,4 @@ def market_data_generate():
     stock_price.to_csv("./data/stock_price.csv",index=False)
 
 
+market_data_generate()
