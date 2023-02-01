@@ -29,8 +29,9 @@ password = st.text_input("비밀번호 입력", type="password")
 customer_id = cus_info[cus_info['고객명'] == input_user_name]['이메일'].values[0]
 
 els_df.rename(columns = {"청약기간" : "청약마감일"},inplace=True)
+
 def date_preprocessing(x):
-    target_date =  x.split("~")
+    target_date = x.split("~")
     if len(target_date) !=1:
         if "(" in target_date[1]:
             return target_date[1].split("(")[0]
