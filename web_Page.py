@@ -92,11 +92,12 @@ if st.button("리포트 생성"):
         my_bar.progress(percent_complete + 1)
 
 if st.button("Email Send"):
+    today_date = datetime.datetime.now().strftime("%Y.%m.%d")
     msg = MIMEMultipart()
     msg['From'] = email_id
     msg['To'] = customer_id
     msg['Date'] = formatdate(localtime=True)
-    msg['Subject'] = Header(s='{0}고객님 리포트 '.format(input_user_name), charset='utf-8')
+    msg['Subject'] = Header(s='[0] {1}고객님 리포트 '.format(today_date,input_user_name), charset='utf-8')
     body = MIMEText('{0}고객님 리포트 입니다.'.format(input_user_name), _charset='utf-8')
     msg.attach(body)
 
