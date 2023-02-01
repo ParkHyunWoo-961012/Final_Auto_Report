@@ -1,4 +1,4 @@
-from selenium import webdriver  #셀레늄 : 실제 웹브라우저를 열어서 진행
+from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import datetime
@@ -455,6 +455,7 @@ def data_regeneration():
     target_df['ELS명'] = target_df['ELS명'].str.replace("원금비보장종목형","")
     target_df['ELS명'] = target_df['ELS명'].str.replace("원금비보장지수형","")
     target_df['ELS명'] = target_df['ELS명'].str.replace("파생결합증권","")
+
     def els_name_preprocessing(x):
         target = x.split("(")
         if "ELS" in x:
