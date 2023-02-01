@@ -94,19 +94,15 @@ if st.button("리포트 생성"):
 if st.button("Email Send"):
     today_date = datetime.datetime.now().strftime("%Y.%m.%d")
     msg = MIMEMultipart()
-    body_string = """안녕하세요 {0}님!
-    {1}일 리포트를 안내하여 드립니다. 
-    궁금한 점이 있으시다면 회신 부탁드리겠습니다.
-    
-    감사합니다.
-    
+    body_string = """안녕하세요 {0}님!\n{1}일 리포트를 안내하여 드립니다.\n궁금한 점이 있으시다면 회신 부탁드리겠습니다.\n\n감사합니다.
+
     {2}, 여의도 영업부/113240@koreainvestment.com
     """.format(input_user_name,today_date,pb_name)
 
     msg['From'] = email_id
     msg['To'] = customer_id
     msg['Date'] = formatdate(localtime=True)
-    msg['Subject'] = Header(s='[0] {1}고객님 리포트 '.format(today_date,input_user_name), charset='utf-8')
+    msg['Subject'] = Header(s='{0} {1}고객님 리포트 '.format(today_date,input_user_name), charset='utf-8')
     body = MIMEText('{0}'.format(body_string), _charset='utf-8')
     msg.attach(body)
 
