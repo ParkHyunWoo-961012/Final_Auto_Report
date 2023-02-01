@@ -10,8 +10,6 @@ from email.utils import formatdate
 from email import encoders
 import datetime
 import time
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 
 st.set_page_config(page_title='AI-RETAIL',page_icon='🎈',layout='wide')
 st.title("🎈PB 리포트 업무 자동화 프로그램 '인공지능 리테일 AIR(AI-Retail)")
