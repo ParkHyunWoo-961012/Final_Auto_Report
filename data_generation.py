@@ -409,6 +409,8 @@ def data_regeneration():
     target_df['수익률'] = target_df['수익률'].str.replace("연","")
     target_df['수익률'] = target_df['수익률'].str.replace("%","")
     target_df['수익률'] = target_df['수익률'].str.strip()
+    target_df['수익률'] = target_df['수익률'].str.replace('만기상환시 수익률 결정',"")
+    target_df = target_df[target_df['수익률'] != ""]
     target_df['수익률'] =target_df['수익률'].astype(float)
 
     target_df['최대손실률'] = target_df['최대손실률'].str.replace('최대손실률',"")
@@ -446,6 +448,7 @@ def data_regeneration():
     korea_investment_bond_df['발행사'] = "한국투자증권"
 
     target_bond = pd.concat([kiwoom_bond_df,korea_investment_bond_df[kiwoom_bond_df.columns]])
+
     target_bond['세후수익률'] = target_bond['세후수익률'].astype(float)
 
     target_col = list(target_df.columns)
